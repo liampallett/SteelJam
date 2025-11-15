@@ -7,6 +7,7 @@ public class playerMovement : MonoBehaviour
     public float jumpForce = 10f;
     private bool isGrounded;
     private Rigidbody2D rb;
+    public int jumpCount = 2;
 
     public LayerMask groundLayer;  // Ground layer mask to check for floor
 
@@ -27,9 +28,18 @@ public class playerMovement : MonoBehaviour
         rb.linearVelocity = new Vector2(movementInput, rb.linearVelocity.y);  // Keep y velocity for jumping and falling
 
         // Jumping
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump"))
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);  // Only change the y velocity for jumping
+            if (isGrounded || jumpCount == 2)
+            {
+                Jump();
+                jumpCount = 1;
+            }
+            else if (jumpCount == 1)
+            {
+                Jump();
+                jumpCount = 0;
+            }
         }
     }
 
@@ -50,5 +60,10 @@ public class playerMovement : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    void Jump()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);  // Only change the y velocity for jumping
     }
 }
