@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerMovement : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class playerMovement : MonoBehaviour
     public float dashSpeed;
     private bool isDashing;
     public LayerMask groundLayer;  // Ground layer mask to check for floor
+    public Slider slider;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -53,6 +55,7 @@ public class playerMovement : MonoBehaviour
 
     // Dash cooldown logic
     dashCooldown -= Time.deltaTime;  // Countdown the dash cooldown
+    slider.value = -dashCooldown;
     if(dashCooldown < 0)
     {
         dashCooldown = 0;
@@ -67,6 +70,7 @@ public class playerMovement : MonoBehaviour
             isDashing = true;  // Start dashing
             dashCooldown = 1f;  // Reset cooldown
             dashTime = 0.4f;  // Set dash duration (adjust as needed)
+            jumpCount++;
             rb.linearVelocity = new Vector2(movementInput > 0f ? dashSpeed : -dashSpeed, rb.linearVelocity.y);  // Dash in the horizontal direction
         }
     }
