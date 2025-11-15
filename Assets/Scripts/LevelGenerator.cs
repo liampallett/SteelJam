@@ -39,7 +39,7 @@ public class LevelGenerator : MonoBehaviour
 
         transform.position = new Vector2(posx, posy);
     }
-
+    
     void CleanupPlatforms()
     {
         for (int i = platforms.Count - 1; i >= 0; i--)
