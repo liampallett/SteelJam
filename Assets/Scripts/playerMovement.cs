@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class playerMovement : MonoBehaviour
@@ -8,7 +9,10 @@ public class playerMovement : MonoBehaviour
     private bool isGrounded;
     private Rigidbody2D rb;
     public int jumpCount = 2;
-
+    public float dashCooldown = 0f;
+    private float dashTime;
+    public float dashSpeed;
+    private bool isDashing;
     public LayerMask groundLayer;  // Ground layer mask to check for floor
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,29 +23,65 @@ public class playerMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+{
+    // Check if the player is on the ground
+    CheckIfGrounded();
+
+    // Horizontal movement
+    float movementInput = Input.GetAxis("Horizontal");
+
+    // Normal movement when not dashing
+    if (!isDashing)
     {
-        // Check if the player is on the ground
-        CheckIfGrounded();
+        rb.linearVelocity = new Vector2(movementInput * movementSpeed, rb.linearVelocity.y);  // Keep y velocity for jumping and falling
+    }
 
-        // Horizontal movement
-        float movementInput = Input.GetAxis("Horizontal") * movementSpeed;
-        rb.linearVelocity = new Vector2(movementInput, rb.linearVelocity.y);  // Keep y velocity for jumping and falling
-
-        // Jumping
-        if (Input.GetButtonDown("Jump"))
+    // Jumping
+    if (Input.GetButtonDown("Jump"))
+    {
+        if (isGrounded || jumpCount == 2)
         {
-            if (isGrounded || jumpCount == 2)
-            {
-                Jump();
-                jumpCount = 1;
-            }
-            else if (jumpCount == 1)
-            {
-                Jump();
-                jumpCount = 0;
-            }
+            Jump();
+            jumpCount = 1;
+        }
+        else if (jumpCount == 1)
+        {
+            Jump();
+            jumpCount = 0;
         }
     }
+
+    // Dash cooldown logic
+    dashCooldown -= Time.deltaTime;  // Countdown the dash cooldown
+    if(dashCooldown < 0)
+    {
+        dashCooldown = 0;
+    }
+    
+    // Dash logic (if player presses LeftShift and dash is ready)
+    if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldown <= 0f && !isDashing)
+    {
+        // Dash in the direction of movement (positive for right, negative for left)
+        if (movementInput != 0f)
+        {
+            isDashing = true;  // Start dashing
+            dashCooldown = 1f;  // Reset cooldown
+            dashTime = 0.4f;  // Set dash duration (adjust as needed)
+            rb.linearVelocity = new Vector2(movementInput > 0f ? dashSpeed : -dashSpeed, rb.linearVelocity.y);  // Dash in the horizontal direction
+        }
+    }
+
+    // Handle dash duration
+    if (isDashing)
+    {
+        dashTime -= Time.deltaTime;
+        if (dashTime <= 0f)
+        {
+            isDashing = false;  // End dash after duration
+        }
+    }
+}
+
 
     void CheckIfGrounded()
     {
