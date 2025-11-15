@@ -8,6 +8,7 @@ public class LevelGenerator : MonoBehaviour
 
     private List<GameObject> platforms = new List<GameObject>();
     private Camera mainCam;
+    
 
     void Start()
     {
@@ -35,6 +36,9 @@ public class LevelGenerator : MonoBehaviour
         GameObject p = Instantiate(platformPrefabs[index], new Vector2(posx, posy), Quaternion.identity);
 
         p.transform.localScale = new Vector2(size, 1);
+        int LayerGround = LayerMask.NameToLayer("Ground");
+        p.layer = LayerGround;
+        Debug.Log("platform layer: " + p.layer);
         platforms.Add(p);
 
         transform.position = new Vector2(posx, posy);
