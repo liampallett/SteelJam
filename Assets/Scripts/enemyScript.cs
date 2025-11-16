@@ -39,9 +39,9 @@ public class EnemyScript : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (collision.gameObject.CompareTag("playerContact"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.LogWarning("Contact");
+            Destroy(collision.gameObject);
         }
     }
 }
