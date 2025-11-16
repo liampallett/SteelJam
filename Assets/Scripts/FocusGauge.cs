@@ -60,12 +60,12 @@ public class FocusGauge : MonoBehaviour
 
 
         if (slider.value==0){
-            text.SetText("Lost Focus "+"Should have Locked In");
+            GameObject.Find("GOCanvas").transform.GetChild(0).gameObject.SetActive(true);
 
         }
 
         if (speed > 10){
-            slider.value+=5f+Time.deltaTime;
+            slider.value+=3f*Time.deltaTime;
         }
     
         
