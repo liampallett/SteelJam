@@ -9,6 +9,10 @@ public class FocusGauge : MonoBehaviour
     [SerializeField] Slider slider;
     [SerializeField] TMP_Text text;
     [SerializeField] bool showValue;
+
+    public Rigidbody2D playerRb;
+
+   
     
 
 
@@ -24,8 +28,11 @@ public class FocusGauge : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+         float speed = playerRb.linearVelocity.magnitude;
+
         if (slider.value!=0){
-            slider.value-=2f * Time.deltaTime;
+            slider.value-=3f * Time.deltaTime;
         }
 
 
@@ -55,6 +62,10 @@ public class FocusGauge : MonoBehaviour
         if (slider.value==0){
             text.SetText("Lost Focus "+"Should have Locked In");
 
+        }
+
+        if (speed > 10){
+            slider.value+=5f+Time.deltaTime;
         }
     
         
