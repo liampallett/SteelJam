@@ -3,6 +3,7 @@ using UnityEngine;
 public class singleSpawn : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    public float spawnHeightOffset = 2f;
 
     void Start()
     {
@@ -11,6 +12,7 @@ public class singleSpawn : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        Vector3 spawnPos = transform.position + Vector3.up * spawnHeightOffset;
+        Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
     }
 }
