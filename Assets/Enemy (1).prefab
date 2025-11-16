@@ -4364,8 +4364,8 @@ GameObject:
   - component: {fileID: 8114039160764091838}
   - component: {fileID: 486918693242797455}
   - component: {fileID: 7483427680519771819}
-  - component: {fileID: 2230174086418037328}
   - component: {fileID: 3790499702582679251}
+  - component: {fileID: 7142256930426053364}
   m_Layer: 5
   m_Name: Enemy (1)
   m_TagString: Enemy
@@ -7428,23 +7428,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &2230174086418037328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7476506874741080350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f68e63403d7a38e4781f3b53e96c906c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::enemyScript
-  myRigidbody: {fileID: 7483427680519771819}
-  speed: 2
-  fallDetection: {fileID: 3361667227620034719}
-  groundCheckDistance: 0.1
-  directionOfGuy: 1
 --- !u!61 &3790499702582679251
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7491,6 +7474,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.74, y: 0.81}
   m_EdgeRadius: 0
+--- !u!114 &7142256930426053364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476506874741080350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e26f5e8fd4e248eb97c069454b1150f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyScript
+  myRigidbody: {fileID: 7483427680519771819}
+  speed: 2
+  fallDetection: {fileID: 3361667227620034719}
+  groundCheckDistance: 1
+  directionOfGuy: 1
 --- !u!1 &7684691162113944769
 GameObject:
   m_ObjectHideFlags: 0
