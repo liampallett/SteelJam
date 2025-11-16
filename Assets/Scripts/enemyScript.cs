@@ -41,7 +41,8 @@ public class EnemyScript : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
+            GameObject.Find("GOCanvas").transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 }
